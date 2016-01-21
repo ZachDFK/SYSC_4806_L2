@@ -110,7 +110,7 @@ class Spellchecker
       retA = Array.new(0)
       edits1(word).each do |obj|
         known(edits1(obj)).each do |obj_x|
-          if(retA.rindex(obj_x) == nil)
+          if retA.rindex(obj_x) == nil
             retA.insert(-1,obj_x)
           end
         end
@@ -142,20 +142,19 @@ class Spellchecker
     else 
       tempArray = Array.new(known(edits1(word)))
       if tempArray.size >0
+        @c=0
         tempArray.each do |tword|
           if retA.size >0
-            @done = 1
             retA.each do |rword|
-              if lookup(tword) >= lookup(rword) && @done != -1
-                @c = retA.rindex(rword)
-                retA.insert(@c,tword)
-                @done = -1
-              else
-                if(retA.rindex(tword) == nil)
-                  retA.insert(@c+1,tword)
-                end
+              if lookup(tword) >lookup(rword)
+                  @c = retA.rindex(rword)
+                  break
               end
+              @c +=1
             end
+            if(retA.rindex(tword) == nil)
+                   retA.insert(@c,tword)
+              end
           else
             retA.insert(0,tword)    
           end
@@ -163,19 +162,19 @@ class Spellchecker
       else
         tempArray = Array.new(known(known_edits2(word)))
         if tempArray.size >0
+          @c=0
           tempArray.each do |tword|
             if retA.size >0
-              @done = 1
               retA.each do |rword|
-                if lookup(tword) >= lookup(rword) && @done != -1
+                if lookup(tword) > lookup(rword)
                   @c = retA.rindex(rword)
-                  retA.insert(@c,tword)
-                  @done = -1
-                else
-                   if(retA.rindex(tword) == nil)
-                     retA.insert(@c+1,tword)
-                   end
+                  break
+                
                 end
+                @c +=1
+              end
+              if(retA.rindex(tword) == nil)
+                   retA.insert(@c,tword)
               end
             else
               retA.insert(0,tword)    
