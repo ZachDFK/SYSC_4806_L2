@@ -32,7 +32,7 @@ class SpellcheckerTest < ActiveSupport::TestCase
     eds = sp.edits1("hel")
     #deletes
     deletes = ["he", "hl", "el"]
-    deletes.each {|d| assert eds.include?(d) , "problem with deletes: test case #{d}" }    
+    deletes.each {|d| assert eds.include?(d) , "problem with deletes: test case #{d} got #{eds}" }    
   end
   
   test "inserts" do
@@ -40,7 +40,7 @@ class SpellcheckerTest < ActiveSupport::TestCase
     eds = sp.edits1("hel")
     #subset of possible includes
     inserts = ["ahel", "hkel", "herl", "helz"]
-    inserts.each {|d| assert eds.include?(d) , "problem with includes: test case #{d}" }    
+    inserts.each {|d| assert eds.include?(d) , "problem with includes: test case #{d}  got #{eds}" }    
   end
    
   test "transposes" do
@@ -48,7 +48,7 @@ class SpellcheckerTest < ActiveSupport::TestCase
     eds = sp.edits1("hel")
     #tranposes
     transposes = ["ehl", "hle"]
-    transposes.each {|d| assert eds.include?(d) , "problem with transposes: test case #{d}"}    
+    transposes.each {|d| assert eds.include?(d) , "problem with transposes: test case #{d} got #{eds}"}    
   end
   
   test "replaces" do
@@ -56,7 +56,7 @@ class SpellcheckerTest < ActiveSupport::TestCase
     eds = sp.edits1("hel")
     #subset of replaces
     replaces = ["vel","hfl", "hep"]
-    replaces.each {|d| assert eds.include?(d), "problem with replaces: test case= #{d}"}    
+    replaces.each {|d| assert eds.include?(d), "problem with replaces: test case= #{d}  got #{eds}"}    
   end
   
 # 
